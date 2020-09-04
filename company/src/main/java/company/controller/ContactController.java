@@ -34,11 +34,21 @@ public class ContactController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action=request.getParameter("action");
+		
 		if(action.equals("LIST")) {
-			List<ContactDTO> contactDTOs=contactService.listContact();
-			request.setAttribute("contacts", contactDTOs);
-			RequestDispatcher rd=request.getRequestDispatcher("/views/contact/contactlist.jsp");
-			rd.forward(request, response);
+			String searchKey=request.getParameter("searchKey");
+			if(searchKey!=null) {
+				List<ContactDTO> contactDTOs=contactService.findByContact(searchKey);
+				request.setAttribute("contacts", contactDTOs);
+				RequestDispatcher rd=request.getRequestDispatcher("/views/contact/contactlist.jsp");
+				rd.forward(request, response);
+			}else {
+				List<ContactDTO> contactDTOs=contactService.listContact();
+				request.setAttribute("contacts", contactDTOs);
+				RequestDispatcher rd=request.getRequestDispatcher("/views/contact/contactlist.jsp");
+				rd.forward(request, response);
+			}
+		
 		}
 		else if(action.equals("INSERT")) {
 			RequestDispatcher rd=request.getRequestDispatcher("/views/contact/contactinsert.jsp");

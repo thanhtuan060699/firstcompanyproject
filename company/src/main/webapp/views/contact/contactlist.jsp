@@ -8,7 +8,7 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Danh sách khách hàng</title>
+		<title>List Contact</title>
 	</head>
 
 	<body>
@@ -49,35 +49,19 @@
 												<div class="widget-body">
 													<div class="widget-main">
 														<div class="form-horizontal">
-															<form action="${customerURL}" method="get" id="formSearchCustomer">
+															<form action="/company/contact-account" method="get" id="formSearchCustomer">
 															<div class="form-group">
 																<div class="col-sm-4">
-																	<label for="name">Name</label>
-																	<input type="text" id="name" class="form-control" name="name">
-																</div>
-																<div class="col-sm-4">
-																	<label for="numberPhone">Email</label>
-																	<input type="text" id="phoneNumber" class="form-control" name="phoneNumber">
-																</div>
-																<div class="col-sm-4">
-																	<label for="numberOfBasement">Phone Number</label>
-																	<input type="text" id="address" class="form-control" name="address">
+																	<label for="name">Text</label>
+																	<input type="text" id="searchKey" class="form-control" name="searchKey">
 																</div>
 															</div>
 															
+							
 															<div class="form-group">
 																	<div class="col-sm-8">
-																	<c:forEach var="item" items="${buildingTypes}" >
-																		<label class="checkbox-inline">
-																		<input type="checkbox" value="${item.key }" id="buildingTypes" name="buildingTypes"
-																				${fn:contains(fn:join(model.buildingTypes,','),item.key)?'checked' :'' }>${item.value }
-																		</label>
-																	</c:forEach>									
-																	</div>
-															</div>
-															<div class="form-group">
-																	<div class="col-sm-8">
-																			<button type="button" class="btn btn-primary" id="btnSearchCustomer">Search</button>
+																			
+																			    <input type="submit" value="Search" class="btn btn-primary" /> 
 																	</div>		
 															</div>
 															<input type="hidden" value="LIST" name="action" />

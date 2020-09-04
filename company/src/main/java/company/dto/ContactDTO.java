@@ -6,6 +6,7 @@ public class ContactDTO {
 	private String email;
 	private String phoneNumber;
 	private Long ids[];
+	private String searchKey;
 	
 	public ContactDTO() {
 		super();
@@ -46,6 +47,12 @@ public class ContactDTO {
 	}
 	public void setIds(Long ids[]) {
 		this.ids = ids;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
 	
 	

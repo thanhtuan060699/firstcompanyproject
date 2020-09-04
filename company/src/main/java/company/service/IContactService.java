@@ -10,4 +10,5 @@ public interface IContactService {
 	public void editContact(ContactDTO contactDTO);
 	public ContactDTO findById(Long id);
 	public void deleteContact(ContactDTO contactDTO);
+	public List<ContactDTO> findByContact(String searchKey);
 }

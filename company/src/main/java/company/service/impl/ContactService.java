@@ -31,5 +31,9 @@ public class ContactService implements IContactService{
 		contactRepository.deleteContact(contactDTO);
 		
 	}
+	@Override
+	public List<ContactDTO> findByContact(String searchKey) {
+		return contactRepository.findByContact(searchKey);
+	}
 
 }

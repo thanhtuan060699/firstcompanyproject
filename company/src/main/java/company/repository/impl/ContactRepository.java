@@ -108,4 +108,27 @@ public class ContactRepository implements IContactRepository{
 		}
 	}
 
+	@Override
+	public List<ContactDTO> findByContact(String searchKey) {
+		try {
+			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
+			Connection connection=EntityManagerFactory.getConnection();
+			String sql="select * from contact where name like '%"+searchKey+"%' or email like '%"+searchKey+"%' or phonenumber "
+					+ "like '%"+searchKey+"%'";
+			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				ContactDTO contact=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
+						resultSet.getString("email"), resultSet.getString("phonenumber"));
+				contactDTOs.add(contact);
+				
+			}
+			return contactDTOs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
