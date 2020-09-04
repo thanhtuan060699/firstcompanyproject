@@ -26,5 +26,10 @@ public class ContactService implements IContactService{
 	public ContactDTO findById(Long id) {
 		return contactRepository.findById(id);
 	}
+	@Override
+	public void deleteContact(ContactDTO contactDTO) {
+		contactRepository.deleteContact(contactDTO);
+		
+	}
 
 }

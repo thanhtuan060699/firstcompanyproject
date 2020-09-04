@@ -59,6 +59,7 @@
 	<script src="<c:url value='/template/admin/assets/js/ace.min.js' />"></script>
 	<script src="<c:url value='/template/admin/js/contact-insert.js' />"></script>
 	<script src="<c:url value='/template/admin/js/contact-edit.js' />"></script>
+	<script src="<c:url value='/template/admin/js/contact-delete.js' />"></script>
 	
 </body>
 </html>

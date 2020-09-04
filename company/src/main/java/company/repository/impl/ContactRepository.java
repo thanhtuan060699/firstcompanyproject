@@ -91,4 +91,21 @@ public class ContactRepository implements IContactRepository{
 		return null;
 	}
 
+	@Override
+	public void deleteContact(ContactDTO contactDTO) {
+		try {
+			Connection connection=EntityManagerFactory.getConnection();
+			for(int i=0;i<contactDTO.getIds().length;i++) {
+				String sql="delete from contact where id=?";
+				PreparedStatement preparedStatement=connection.prepareStatement(sql);
+				preparedStatement.setLong(1, contactDTO.getIds()[i]);
+				int result=preparedStatement.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

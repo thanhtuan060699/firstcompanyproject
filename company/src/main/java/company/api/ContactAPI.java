@@ -55,5 +55,13 @@ public class ContactAPI extends HttpServlet {
 		objectMapper.writeValue(response.getOutputStream(), 1);
 		
 	}
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectMapper objectMapper=new ObjectMapper();
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		ContactDTO contactDTO=HttpUtil.of(request.getReader()).toModel(ContactDTO.class);
+		contactService.deleteContact(contactDTO);
+		objectMapper.writeValue(response.getOutputStream(), 1);
+	}
 
 }

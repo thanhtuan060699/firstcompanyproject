@@ -5,6 +5,7 @@ public class ContactDTO {
 	private String name;
 	private String email;
 	private String phoneNumber;
+	private Long ids[];
 	
 	public ContactDTO() {
 		super();
@@ -39,6 +40,12 @@ public class ContactDTO {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public Long[] getIds() {
+		return ids;
+	}
+	public void setIds(Long ids[]) {
+		this.ids = ids;
 	}
 	
 	
