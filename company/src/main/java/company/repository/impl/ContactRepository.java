@@ -14,12 +14,15 @@ public class ContactRepository implements IContactRepository{
 
 	@Override
 	public List<ContactDTO> findAll() {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
 		try {
 			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
-			Connection connection=EntityManagerFactory.getConnection();
+			connection=EntityManagerFactory.getConnection();
 			String sql="select * from contact";
-			PreparedStatement preparedStatement=connection.prepareStatement(sql);
-			ResultSet resultSet=preparedStatement.executeQuery();
+			preparedStatement=connection.prepareStatement(sql);
+			resultSet=preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				ContactDTO contactDTO=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
 						resultSet.getString("email"), resultSet.getString("phonenumber"));
@@ -30,16 +33,32 @@ public class ContactRepository implements IContactRepository{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				return null;
+			}
 		}
 		return null;
 	}
 
 	@Override
 	public void insertContact(ContactDTO contactDTO) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
 		try {
-			Connection connection=EntityManagerFactory.getConnection();
+		    connection=EntityManagerFactory.getConnection();
 			String sql="insert into contact(name,email,phonenumber) values(?,?,?)";
-			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			preparedStatement=connection.prepareStatement(sql);
 			preparedStatement.setString(1, contactDTO.getName());
 			preparedStatement.setString(2, contactDTO.getEmail());
 			preparedStatement.setString(3, contactDTO.getPhoneNumber());
@@ -47,16 +66,30 @@ public class ContactRepository implements IContactRepository{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
 		}
 		
 	}
 
 	@Override
 	public void editContact(ContactDTO contactDTO) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
 		try {
-			Connection connection=EntityManagerFactory.getConnection();
+		    connection=EntityManagerFactory.getConnection();
 			String sql="update contact set name=?,email=?,phonenumber=? where id=?";
-			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			preparedStatement=connection.prepareStatement(sql);
 			preparedStatement.setString(1, contactDTO.getName());
 			preparedStatement.setString(2, contactDTO.getEmail());
 			preparedStatement.setString(3, contactDTO.getPhoneNumber());
@@ -65,19 +98,35 @@ public class ContactRepository implements IContactRepository{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+				resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
 		}
 		
 	}
 
 	@Override
 	public ContactDTO findById(Long id) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
 		try {
-			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
-			Connection connection=EntityManagerFactory.getConnection();
+		    connection=EntityManagerFactory.getConnection();
 			String sql="select * from contact where id=?";
-			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+		    preparedStatement=connection.prepareStatement(sql);
 			preparedStatement.setLong(1, id);
-			ResultSet resultSet=preparedStatement.executeQuery();
+		    resultSet=preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				ContactDTO contactDTO=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
 						resultSet.getString("email"), resultSet.getString("phonenumber"));
@@ -87,17 +136,34 @@ public class ContactRepository implements IContactRepository{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
 		}
+		
 		return null;
 	}
 
 	@Override
 	public void deleteContact(ContactDTO contactDTO) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
 		try {
-			Connection connection=EntityManagerFactory.getConnection();
+		    connection=EntityManagerFactory.getConnection();
 			for(int i=0;i<contactDTO.getIds().length;i++) {
 				String sql="delete from contact where id=?";
-				PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			    preparedStatement=connection.prepareStatement(sql);
 				preparedStatement.setLong(1, contactDTO.getIds()[i]);
 				int result=preparedStatement.executeUpdate();
 			}
@@ -105,18 +171,32 @@ public class ContactRepository implements IContactRepository{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
 		}
 	}
 
 	@Override
 	public List<ContactDTO> findByContact(String searchKey) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
 		try {
 			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
-			Connection connection=EntityManagerFactory.getConnection();
+		    connection=EntityManagerFactory.getConnection();
 			String sql="select * from contact where name like '%"+searchKey+"%' or email like '%"+searchKey+"%' or phonenumber "
 					+ "like '%"+searchKey+"%'";
-			PreparedStatement preparedStatement=connection.prepareStatement(sql);
-			ResultSet resultSet=preparedStatement.executeQuery();
+		    preparedStatement=connection.prepareStatement(sql);
+		    resultSet=preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				ContactDTO contact=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
 						resultSet.getString("email"), resultSet.getString("phonenumber"));
@@ -127,6 +207,189 @@ public class ContactRepository implements IContactRepository{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<ContactDTO> findByEmailAndPhoneNumber(ContactDTO contactDTO) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		try {
+			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
+		    connection=EntityManagerFactory.getConnection();
+			String sql="select * from contact where email=? or phonenumber=?";
+		    preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setString(1, contactDTO.getEmail());
+			preparedStatement.setString(2, contactDTO.getPhoneNumber());
+	        resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				ContactDTO contact=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
+						resultSet.getString("email"), resultSet.getString("phonenumber"));
+				contactDTOs.add(contact);
+				
+			}
+			return contactDTOs;
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<ContactDTO> findByName(ContactDTO contactDTO) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		try {
+			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
+		    connection=EntityManagerFactory.getConnection();
+			String sql="select * from contact where name like '"+contactDTO.getName()+"%'";
+		    preparedStatement=connection.prepareStatement(sql);
+		    resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				ContactDTO contact=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
+						resultSet.getString("email"), resultSet.getString("phonenumber"));
+				contactDTOs.add(contact);
+				
+			}
+			return contactDTOs;
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public ContactDTO findByEmailPhoneNumberAndId(ContactDTO contactDTO) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		try {
+			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
+		    connection=EntityManagerFactory.getConnection();
+			String sql="select * from contact where phonenumber=? and email=? and id=?";
+		    preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setString(1, contactDTO.getPhoneNumber());
+			preparedStatement.setString(2, contactDTO.getEmail());
+			preparedStatement.setLong(3, contactDTO.getId());
+		    resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				ContactDTO contact=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
+						resultSet.getString("email"), resultSet.getString("phonenumber"));
+				return contact;
+				
+			}
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public ContactDTO findByEmailPhoneNumberNotInId(ContactDTO contactDTO) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		try {
+			List<ContactDTO> contactDTOs=new ArrayList<ContactDTO>();
+		    connection=EntityManagerFactory.getConnection();
+			String sql="select * from contact where (phonenumber=? or email=?) and id not in (?)";
+		    preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setString(1, contactDTO.getPhoneNumber());
+			preparedStatement.setString(2, contactDTO.getEmail());
+			preparedStatement.setLong(3, contactDTO.getId());
+		    resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				ContactDTO contact=new ContactDTO(resultSet.getLong("id"),resultSet.getString("name"), 
+						resultSet.getString("email"), resultSet.getString("phonenumber"));
+				return contact;
+				
+			}
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
 		}
 		return null;
 	}

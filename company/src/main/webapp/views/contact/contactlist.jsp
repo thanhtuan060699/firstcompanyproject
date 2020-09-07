@@ -52,18 +52,16 @@
 															<form action="/company/contact-account" method="get" id="formSearchCustomer">
 															<div class="form-group">
 																<div class="col-sm-4">
-																	<label for="name">Text</label>
-																	<input type="text" id="searchKey" class="form-control" name="searchKey">
+						
+																	<input type="text" id="searchKey" class="form-control" name="searchKey" placeholder="Search Contact"
+																	value="${textSearch }" style="height: 42px">
 																</div>
-															</div>
-															
-							
-															<div class="form-group">
-																	<div class="col-sm-8">
+																<div class="col-sm-8">
 																			
-																			    <input type="submit" value="Search" class="btn btn-primary" /> 
-																	</div>		
+																		  <input type="submit" value="Search" class="btn btn-primary" style="" /> 
+															   </div>		
 															</div>
+														
 															<input type="hidden" value="LIST" name="action" />
 														</form>
 														</div>
@@ -102,28 +100,37 @@
 											</thead>
 											<tbody>
 											<c:forEach var="item" items="${contacts}">
-											<tr>
+											<a></a>
+											<tr >
 													<td><input type="checkbox" value="${item.id}" id="check_box1"></td>
-													<td>${item.name}</td>
-													<td>${item.email}</td>
-													<td>${item.phoneNumber}</td>
 													
+													<td  class="btnContactEdit" data-id="${item.id}" style="cursor: pointer;">${item.name}</td>
+													<td  class="btnContactEdit" data-id="${item.id}" style="cursor: pointer;">${item.email}</td>
+													<td  class="btnContactEdit" data-id="${item.id}" style="cursor: pointer;">${item.phoneNumber}</td>
+												
 													
 													<td>
 												
 														<a  href='<c:url value='/contact-account?action=EDIT&id=${item.id}'/>'>
 															<button class="btn btn-info btn-xs" data-toggle="tolltip"
 														 title="Edit Contact"  >
-															<i class="fa fa-refresh" aria-hidden="true"></i>
+															<i class="fa fa-pencil" aria-hidden="true"></i>
 															</button>
 														</a>
 														
 													</td>
 												</tr>
+												
 											</c:forEach>			
 											</tbody>
 										</table>
 								</div>
+								<c:if test="${ not empty emptyResults}">
+								<div class="col-xs-12" style="text-align: center;font-size: 25px">
+									<p>Don't have any results</p>
+								</div>
+								</c:if>
+								
 
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
@@ -138,16 +145,18 @@
 			  <div class="modal-content">
 				<div class="modal-header">
 				  <button type="button" class="close" data-dismiss="modal">&times;</button>
-				  <h4 class="modal-title" style="text-align: center;">Bạn có muốn xóa hay không ?</h4>
+				  <h4 class="modal-title" style="text-align: center;">Do you want to delete that contacts ?</h4>
 				</div>
 				
 				<div class="modal-footer" style="text-align: center;">
-				  <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnDeleteContact">Xóa</button>
-				  <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
+				  <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnDeleteContact">YES</button>
+				  <button type="button" class="btn btn-info" data-dismiss="modal">NO</button>
 				</div>
 			  </div>
 			</div>
 		</div>
+		<script src="<c:url value='/template/admin/assets/js/jquery.2.1.1.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/contact-delete.js' />"></script>
 	</body>
 
 	</html>

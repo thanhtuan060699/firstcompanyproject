@@ -26,8 +26,16 @@
 							<li class="active">Insert Contact</li>
 						</ul><!-- /.breadcrumb -->
 					</div>
+					
 					<div class="page-content">
-
+						<div class="row">
+							<div class="col-xs-3" style="text-align: center;">
+								
+							</div>
+							<div class="col-xs-8 alert-enter" style="text-align: center;" >
+								
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-xs-12">
 								<form action="" role="form" class="form-horizontal" id="formEdit">
@@ -65,6 +73,8 @@
 			</div><!-- /.page-content -->
 		</div>
 		</div>
+		<script src="<c:url value='/template/admin/assets/js/jquery.2.1.1.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/contact-insert.js' />"></script>
 	</body>
 
 	</html>

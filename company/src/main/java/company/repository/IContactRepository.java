@@ -11,4 +11,8 @@ public interface IContactRepository {
 	public ContactDTO findById(Long id);
 	public void deleteContact(ContactDTO contactDTO);
 	public List<ContactDTO> findByContact(String searchKey);
+	public List<ContactDTO> findByEmailAndPhoneNumber(ContactDTO contactDTO);
+	public List<ContactDTO> findByName(ContactDTO contactDTO);
+	public ContactDTO findByEmailPhoneNumberAndId(ContactDTO contactDTO);
+	public ContactDTO findByEmailPhoneNumberNotInId(ContactDTO contactDTO);
 }
